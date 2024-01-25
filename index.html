@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UUID Generator</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f5f5;
+      text-align: center;
+      margin: 50px;
+    }
+
+    h1 {
+      color: #333;
+      font-weight: 700;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #555;
+    }
+
+    input {
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      outline: none;
+    }
+
+    button {
+      padding: 12px 24px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    #uuid-container {
+      margin-top: 30px;
+    }
+
+    .uuid-box {
+      display: inline-block;
+      background-color: #fff;
+      padding: 30px;
+      margin: 15px;
+      border-radius: 20px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      border: 3px solid #3498db;
+      color: #333;
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    p {
+      margin-bottom: 5px;
+    }
+  </style>
+  <script>
+    function generateUUID() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0,
+            v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    function displayUUIDs() {
+      var countInput = document.getElementById('uuid-count');
+      var count = countInput.value;
+
+      if (isNaN(count) || count <= 0) {
+        alert('エラー: 1または1以上の数値を入力してください。');
+        return;
+      }
+
+      var uuidContainer = document.getElementById('uuid-container');
+      uuidContainer.innerHTML = ''; // 以前のUUIDをクリア
+
+      for (var i = 0; i < count; i++) {
+        var uuidElement = document.createElement('div');
+        uuidElement.classList.add('uuid-box');
+        uuidElement.textContent = generateUUID();
+        uuidContainer.appendChild(uuidElement);
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>UUID Generator</h1>
+  <label for="uuid-count">生成するUUIDの個数を入力してください（数字のみ）:</label>
+  <input type="number" id="uuid-count" min="1" value="1">
+  <button onclick="displayUUIDs()">UUIDを生成</button>
+  <div id="uuid-container"></div>
+</body>
+</html>
