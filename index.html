@@ -1,119 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>UUID Generator</title>
-  <meta content="UUID生成" property="og:title" />
-  <meta content="個数指定でUUIDを生成します。" property="og:description" />
-  <meta content="https://www.uuid-generator.f5.si" property="og:url" />
-  <meta content="https://cdn.discordapp.com/attachments/1185881022475288650/1200688020572086312/564_20240127150039.png?ex=65c716db&is=65b4a1db&hm=201be446202b6d30f1e491e7e1253ce1a4846eed8fb6d016ee0cf7ed8b8029be&" property="og:image" />
-  <meta content="#3498DB" data-react-helmet="true" name="theme-color" />
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UUID Generator</title>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f5f5f5;
-      text-align: center;
-      margin: 50px
-    }
+  <title>Ryouchan0724プロフィール</title>
+  <meta content="Ryouchan0724プロフィール" property="og:title" />
+  <meta content="プロフィールサイト。" property="og:description" />
+  <meta content="https://www.uuid-generator.f5.si/index1.html" property="og:url" />
+  <meta content="https://cdn.discordapp.com/attachments/1185198039820947467/1203239753886208000/discord-avatar-512-YSDRY.png?ex=65d05f58&is=65bdea58&hm=cd182e7b1f8f8bdb5ad6fd46740973a8efc4b03578a13a41ae7e4111451feb39&" property="og:image" />
+  <meta content="#008fff" data-react-helmet="true" name="theme-color" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryouchan0724プロフィール</title>
+    <style>
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateY(-50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
 
-    h1 {
-      color: #333;
-      font-weight: 700;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333; /* デフォルトのテキストの色を設定 */
+            background-color: #fff; /* デフォルトの背景色を設定 */
+            transition: background-color 0.5s ease, color 0.5s ease; /* 背景色とテキストの色の変化をスムーズにする */
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px;
+            color: #fff;
+            border-bottom: 2px solid #ccc;
+            animation: slideIn 0.5s ease-out;
+            background-color: #3498db; /* ヘッダーの背景色を明るい青に設定 */
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+        
+        header img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-top: 20px;
+            margin-right: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
 
-    label {
-      display: block;
-      margin-bottom: 10px;
-      color: #555;
-    }
+        .game-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-right: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.5s ease-out;
+        }
 
-    input {
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      outline: none;
-    }
+        main {
+            padding: 20px;
+        }
+        
+        section {
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.5s ease-out;
+            background-color: #f9fafb; /* セクションの背景色を白に設定 */
+        }
+        
+        section h2 {
+            font-size: 24px;
+            margin-bottom: 10px; /* セクションタイトルの下マージンを設定 */
+        }
 
-    button {
-      padding: 12px 24px;
-      background-color: #3498db;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+        p {
+            color: #555; /* テキストの色をダークグレーに設定 */
+        }
 
-    button:hover {
-      background-color: #2980b9;
-    }
+        /* ダークモード時のスタイル */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #000; /* ダークモードの背景色を黒に設定 */
+                color: #fff; /* ダークモード時のテキストの色を白に設定 */
+            }
+            
+            header {
+                background-color: #3498db; /* ダークモードのヘッダー背景色をダークグレーに設定 */
+            }
+            
+            section {
+                background-color: #111; /* ダークモードのセクション背景色をダークグレーに設定 */
+            }
 
-    #uuid-container {
-      margin-top: 30px;
-    }
-
-    .uuid-box {
-      display: inline-block;
-      background-color: #fff;
-      padding: 30px;
-      margin: 15px;
-      border-radius: 20px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-      border: 3px solid #3498db;
-      color: #333;
-      font-size: 20px;
-      font-weight: bold;
-      letter-spacing: 1px;
-      animation: fadeIn 0.5s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    p {
-      margin-bottom: 5px;
-    }
-  </style>
-  <script>
-    function generateUUID() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0,
-            v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-    }
-
-    function displayUUIDs() {
-      var countInput = document.getElementById('uuid-count');
-      var count = countInput.value;
-
-      if (isNaN(count) || count <= 0) {
-        alert('エラー: 1または1以上の数値を入力してください。');
-        return;
-      }
-
-      var uuidContainer = document.getElementById('uuid-container');
-      uuidContainer.innerHTML = ''; // 以前のUUIDをクリア
-
-      for (var i = 0; i < count; i++) {
-        var uuidElement = document.createElement('div');
-        uuidElement.classList.add('uuid-box');
-        uuidElement.textContent = generateUUID();
-        uuidContainer.appendChild(uuidElement);
-      }
-    }
-  </script>
+            section h2 {
+                color: #fff; /* ダークモード時のタイトルの色を白に設定 */
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>UUID Generator</h1>
-  <label for="uuid-count">生成するUUIDの個数を入力してください（数字のみ）:</label>
-  <input type="number" id="uuid-count" min="1" value="1">
-  <button onclick="displayUUIDs()">UUIDを生成</button>
-  <div id="uuid-container"></div>
+    <header>
+        <img src="discord-avatar-512-YSDRY.png" alt="プロフィール写真">
+        <h1>Ryouchan0724/りょうた</h1>
+    </header>
+    <main>
+        <section>
+            <h2>自己紹介</h2>
+            <p>Ryouchan0724と申します!!これからよろしくお願いします!</p>
+        </section>
+        <section id="game-section">
+            <h2>お気に入りのゲーム</h2>
+            <p><img class="game-icon" src="icon.png" alt="Minecraftアイコン"> Minecraft</p>
+        </section>
+        <section id="website-section">
+            <h2>ウェブサイト</h2>
+            <p>私のウェブサイトはこちらです。</p>
+            <a href="https://www.ryouta0724.f5.si">メイン(今は活動休止中)</a>
+        </section>
+    </main>
 </body>
 </html>
+
