@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryouchan0724 Webchat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .content-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        input[type="color"],
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #7fffd4;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #6ab7af;
+        }
+
+        .message-container {
+            border: 2px solid #7fffd4;
+            overflow: auto;
+            max-height: 300px;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            color: #333; /* メッセージのテキスト色を設定 */
+        }
+
+        .message p {
+            margin: 5px 0;
+        }
+
+        .message p.timestamp {
+            color: #777;
+            font-size: 12px;
+            text-align: right;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border: 2px solid #7fffd4;
+            z-index: 1000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        .popup button {
+            background: #7fffd4;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        #colorPicker {
+            display: block;
+            margin-top: 5px;
+        }
+
+        #colorPicker::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+
+        #colorPicker::-webkit-color-swatch {
+            border: none;
+            border-radius: 5px;
+            width: auto;
+            height: auto;
+        }
+
+        /* ライトモード */
+        .light-mode {
+            background-color: #fff;
+            color: #333;
+        }
+
+        /* ダークモード */
+        .dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="light-mode">
+
+    <!-- コンテンツ表示画面 -->
+    <div class="content-container">
+        <div>
+            <label for="uname">名前：</label>
+            <input type="text" id="uname" required>
+        </div>
+        <div>
+            <label for="colorPicker">ユーザーの色：</label>
+            <input type="color" id="colorPicker" value="#000000">
+        </div>
+        <div>
+            <textarea id="text" cols="30" rows="5" placeholder="メッセージを入力してください"></textarea>
+        </div>
+        <div>
+            <button id="send">送信 <i class="fas fa-paper-plane"></i></button>
+        </div>
+        <div id="output" class="message-container"></div>
+    </div>
+
+    <!-- ポップアップ -->
+    <div id="popup" class="popup">
+        <p>名前またはメッセージを入力してください。</p>
+        <button id="popupOk">OK</button>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
+        import { getDatabase, ref, push, set, onChildAdded } 
+        from "https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCcti9zvcjlxV0qa3hrwYF7I1WOaAhFLzQ",
+            authDomain: "sample-37328.firebaseapp.com",
+            projectId: "sample-37328",
+            storageBucket: "sample-37328.appspot.com",
+            messagingSenderId: "570028328460",
+            appId: "1:570028328460:web:31bc4de94cd186b4f7d029"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db  = getDatabase(app);
+        const dbRef = ref(db, "chat");
+
+        function showPopup(message) {
+            $("#popup p").text(message);
+            $("#popup").fadeIn();
+        }
+
+        $("#popupOk").on("click", function() {
+            $("#popup").fadeOut();
+        });
+
+        $("#send").on("click", function() {
+            const uname = $("#uname").val();
+            const msgText = $("#text").val();
+
+            if (!uname.trim() || !msgText.trim()) {
+                showPopup("名前またはメッセージを入力してください。");
+            } else {
+                const msg = {
+                    uname: uname,
+                    text: msgText,
+                    timestamp: getCurrentTimestamp(),
+                    userColor: $("#colorPicker").val()
+                }
+                const newPostRef = push(dbRef);
+                set(newPostRef, msg);
+            }
+        });
+
+        $("#text").on("keydown", function(e) {
+            if (e.keyCode == 13) {
+                const uname = $("#uname").val();
+                const msgText = $("#text").val();
+
+                if (!uname.trim() || !msgText.trim()) {
+                    showPopup("名前またはメッセージを入力してください。");
+                } else {
+                    const msg = {
+                        uname: uname,
+                        text: msgText,
+                        timestamp: getCurrentTimestamp(),
+                        userColor: $("#colorPicker").val()
+                    }
+                    const newPostRef = push(dbRef);
+                    set(newPostRef, msg);
+                }
+            }
+        });
+
+        onChildAdded(dbRef, function(data) {
+            const msg = data.val();
+            const key = data.key;
+
+            let h = '<div class="message">';
+            h += `<p style="color: ${msg.userColor};">${msg.uname}</p>`;
+            h += `<p>${msg.text}</p>`;
+            h += `<p class="timestamp">${msg.timestamp}</p>`;
+            h += '</div>';
+            $("#output").append(h);
+
+            $("#output").animate({ scrollTop: $("#output")[0].scrollHeight }, 500); // 最新のメッセージが表示されるようにスクロール
+
+            const newMessage = $("#output .message:last-child");
+            newMessage.animate({ marginLeft: 0, opacity: 1 }, 500);
+        });
+
+        function getCurrentTimestamp() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+        }
+
+        // ダークモードとライトモードの切り替え
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        darkModeMediaQuery.addListener(toggleDarkMode);
+
+        function toggleDarkMode() {
+            if (darkModeMediaQuery.matches) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        }
+
+        // 初期設定
+        toggleDarkMode();
+    </script>
+</body>
+</html>
