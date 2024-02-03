@@ -7,120 +7,121 @@
   <meta content="https://www.ryouchan0724-app.f5.si" property="og:url" />
   <meta content="https://cdn.discordapp.com/attachments/1185198039820947467/1203239753886208000/discord-avatar-512-YSDRY.png?ex=65d05f58&is=65bdea58&hm=cd182e7b1f8f8bdb5ad6fd46740973a8efc4b03578a13a41ae7e4111451feb39&" property="og:image" />
   <meta content="#008fff" data-react-helmet="true" name="theme-color" />
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ryouchan0724プロフィール</title>
-    <style>
-        @keyframes slideIn {
-            0% { opacity: 0; transform: translateY(-50px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @keyframes slideIn {
+      0% { opacity: 0; transform: translateY(-50px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #333; /* デフォルトのテキストの色を設定 */
-            background-color: #fff; /* デフォルトの背景色を設定 */
-            transition: background-color 0.5s ease, color 0.5s ease; /* 背景色とテキストの色の変化をスムーズにする */
-        }
-        
-        header {
-            text-align: center;
-            padding: 20px;
-            color: #fff;
-            border-bottom: 2px solid #ccc;
-            animation: slideIn 0.5s ease-out;
-            background-color: #3498db; /* ヘッダーの背景色を明るい青に設定 */
-        }
-        
-        header h1 {
-            margin: 0;
-            font-size: 32px;
-        }
-        
-        header img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin-top: 20px;
-            margin-right: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #fff;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+    
+    header {
+      text-align: center;
+      padding: 20px;
+      color: #fff;
+      border-bottom: 2px solid #ccc;
+      animation: slideIn 0.5s ease-out;
+      background-color: #3498db;
+    }
+    
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+    
+    header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-top: 20px;
+      margin-right: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
 
-        .game-icon {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            vertical-align: middle;
-            margin-right: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-            animation: slideIn 0.5s ease-out;
-        }
+    .game-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      vertical-align: middle;
+      margin-right: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      animation: slideIn 0.5s ease-out;
+    }
 
-        main {
-            padding: 20px;
-        }
-        
-        section {
-            margin-bottom: 20px;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            animation: slideIn 0.5s ease-out;
-            background-color: #f9fafb; /* セクションの背景色を白に設定 */
-        }
-        
-        section h2 {
-            font-size: 24px;
-            margin-bottom: 10px; /* セクションタイトルの下マージンを設定 */
-        }
+    main {
+      padding: 20px;
+    }
+    
+    section {
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      animation: slideIn 0.5s ease-out;
+      background-color: #f9fafb;
+    }
+    
+    section h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
 
-        p {
-            color: #555; /* テキストの色をダークグレーに設定 */
-        }
+    p {
+      color: #555;
+    }
 
-        /* ダークモード時のスタイル */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #000; /* ダークモードの背景色を黒に設定 */
-                color: #fff; /* ダークモード時のテキストの色を白に設定 */
-            }
-            
-            header {
-                background-color: #3498db; /* ダークモードのヘッダー背景色をダークグレーに設定 */
-            }
-            
-            section {
-                background-color: #111; /* ダークモードのセクション背景色をダークグレーに設定 */
-            }
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #000;
+        color: #fff;
+      }
+      
+      header {
+        background-color: #3498db;
+      }
+      
+      section {
+        background-color: #111;
+      }
 
-            section h2 {
-                color: #fff; /* ダークモード時のタイトルの色を白に設定 */
-            }
-        }
-    </style>
+      section h2 {
+        color: #fff;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <img src="discord-avatar-512-YSDRY.png" alt="プロフィール写真">
-        <h1>Ryouchan0724/りょうた</h1>
-    </header>
-    <main>
-        <section>
-            <h2>自己紹介</h2>
-            <p>Ryouchan0724と申します!!これからよろしくお願いします!</p>
-        </section>
-        <section id="game-section">
-            <h2>お気に入りのゲーム</h2>
-            <p><img class="game-icon" src="icon.png" alt="Minecraftアイコン"> Minecraft</p>
-        </section>
-        <section id="website-section">
-            <h2>ウェブアプリ</h2>
-            <p>私のウェブアプリはこちらです。</p>
-            <a href="https://www.ryouchan0724-app.f5.si/UUID.html">UUID生成</a>
-        </section>
-    </main>
+  <header>
+    <img src="discord-avatar-512-YSDRY.png" alt="プロフィール写真">
+    <h1>Ryouchan0724/りょうた</h1>
+  </header>
+  <main>
+    <section>
+      <h2>自己紹介</h2>
+      <p>Ryouchan0724と申します!!これからよろしくお願いします!</p>
+    </section>
+    <section id="hobby-section">
+      <h2>趣味</h2>
+      <p>趣味はMinecraftのリソースパックを作ることや、アドオン開発、ScriptAPIなどでコマンドを作ることです。</p>
+    </section>
+    <section id="game-section">
+      <h2>お気に入りのゲーム</h2>
+      <p><img class="game-icon" src="icon.png" alt="Minecraftアイコン"> Minecraft</p>
+    </section>
+    <section id="webapp-section">
+      <h2>私のウェブアプリ</h2>
+      <p>私のウェブアプリはこちらです。</p>
+      <a href="https://www.ryouchan0724-app.f5.si/UUID.html">UUID生成</a>
+    </section>
+  </main>
 </body>
 </html>
-
