@@ -125,31 +125,7 @@
   </header>
   <main>
 <section>
-  <h2>お客様番号</h2>
-  <p>
-    あなたは<span id="access-count">X</span>番目のお客様です!! アクセスありがとうございます!
-  </p>
-</section>
 
-<script>
-  // アクセス数を取得するためのローカルストレージキー
-  const accessKey = 'accessCount';
-  // ローカルストレージからアクセス数を取得
-  let accessCount = localStorage.getItem(accessKey);
-  // アクセス数がnullまたはundefinedの場合、初回アクセスとしてアクセス数を1に設定
-  if (!accessCount) {
-    accessCount = 1;
-    // 初回アクセスの場合はメッセージを表示
-    document.querySelector('#access-count').textContent = '初回';
-    alert('アクセス初回です!! アクセスありがとうございます!!');
-  } else {
-    // アクセス数がある場合は数値に変換して表示
-    accessCount = parseInt(accessCount) + 1;
-    document.querySelector('#access-count').textContent = accessCount;
-  }
-  // ローカルストレージに更新されたアクセス数を保存
-  localStorage.setItem(accessKey, accessCount);
-</script>
     <section>
       <h2>自己紹介</h2>
       <p>Ryouchan0724と申します!!これからよろしくお願いします!</p>
