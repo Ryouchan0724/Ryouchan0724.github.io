@@ -243,7 +243,8 @@
             h += '</div>';
             $("#output").append(h);
 
-            $("#output").animate({ scrollTop: $("#output")[0].scrollHeight }, 500); // 最新のメッセージが表示されるようにスクロール
+            // スクロールして最新のメッセージを表示
+            $("#output").scrollTop($("#output")[0].scrollHeight);
 
             const newMessage = $("#output .message:last-child");
             newMessage.animate({ marginLeft: 0, opacity: 1 }, 500);
