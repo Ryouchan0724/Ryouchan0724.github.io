@@ -171,11 +171,14 @@
         const dbRef = ref(db, "chat");
 
         // 新しい音声オブジェクトを作成
-        const audio = new Audio('audio/nc314411.wav');
+        const popupSound = new Audio('audio/nc215889.wav');
+        const notificationSound = new Audio('audio/nc314411.wav');
 
         function showPopup(message) {
             $("#popup p").text(message);
             $("#popup").fadeIn();
+            // ポップアップが表示されるときにポップアップ用の音を再生する
+            popupSound.play();
         }
 
         $("#popupOk").on("click", function() {
@@ -197,47 +200,9 @@
                 }
                 const newPostRef = push(dbRef);
                 set(newPostRef, msg);
+                // メッセージを送信したときに通知音を再生する
+                notificationSound.play();
             }
-        });
-
-        $("#text").on("keydown", function(e) {
-            if (e.keyCode == 13) {
-                const uname = $("#uname").val();
-                const msgText = $("#text").val();
-
-                if (!uname.trim() || !msgText.trim()) {
-                    showPopup("名前またはメッセージを入力してください。");
-                } else {
-                    const msg = {
-                        uname: uname,
-                        text: msgText,
-                        timestamp: getCurrentTimestamp(),
-                        userColor: $("#colorPicker").val()
-                    }
-                    const newPostRef = push(dbRef);
-                    set(newPostRef, msg);
-                }
-            }
-        });
-
-        onChildAdded(dbRef, function(data) {
-            const msg = data.val();
-            const key = data.key;
-
-            let h = '<div class="message">';
-            h += `<p style="color: ${msg.userColor};">${msg.uname}</p>`;
-            h += `<p>${msg.text}</p>`;
-            h += `<p class="timestamp">${msg.timestamp}</p>`;
-            h += '</div>';
-            $("#output").append(h);
-
-            $("#output").animate({ scrollTop: $("#output")[0].scrollHeight }, 500); // 最新のメッセージが表示されるようにスクロール
-
-            const newMessage = $("#output .message:last-child");
-            newMessage.animate({ marginLeft: 0, opacity: 1 }, 500);
-
-            // メッセージを受信したときに音声を再生する
-            audio.play();
         });
 
         function getCurrentTimestamp() {
@@ -265,6 +230,24 @@
 
         // 初期設定
         toggleDarkMode();
+
+        // 受信したメッセージを表示
+        onChildAdded(dbRef, function(data) {
+            const msg = data.val();
+            const key = data.key;
+
+            let h = '<div class="message">';
+            h += `<p style="color: ${msg.userColor};">${msg.uname}</p>`;
+            h += `<p>${msg.text}</p>`;
+            h += `<p class="timestamp">${msg.timestamp}</p>`;
+            h += '</div>';
+            $("#output").append(h);
+
+            $("#output").animate({ scrollTop: $("#output")[0].scrollHeight }, 500); // 最新のメッセージが表示されるようにスクロール
+
+            const newMessage = $("#output .message:last-child");
+            newMessage.animate({ marginLeft: 0, opacity: 1 }, 500);
+        });
     </script>
 </body>
 </html>
