@@ -170,6 +170,9 @@
         const db  = getDatabase(app);
         const dbRef = ref(db, "chat");
 
+        // 新しい音声オブジェクトを作成
+        const audio = new Audio('audio/nc314411.wav');
+
         function showPopup(message) {
             $("#popup p").text(message);
             $("#popup").fadeIn();
@@ -232,6 +235,9 @@
 
             const newMessage = $("#output .message:last-child");
             newMessage.animate({ marginLeft: 0, opacity: 1 }, 500);
+
+            // メッセージを受信したときに音声を再生する
+            audio.play();
         });
 
         function getCurrentTimestamp() {
