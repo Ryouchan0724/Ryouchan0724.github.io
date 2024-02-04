@@ -11,6 +11,12 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
+        /* ダークモード */
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
         .content-container {
             max-width: 600px;
             margin: 20px auto;
@@ -83,7 +89,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: #fff;
+            background-color: #444; /* ポップアップの背景色を黒に近いグレーに設定 */
             padding: 20px;
             border: 2px solid #7fffd4;
             z-index: 1000;
@@ -117,22 +123,9 @@
             width: auto;
             height: auto;
         }
-
-        /* ライトモード */
-        .light-mode {
-            background-color: #fff;
-            color: #333;
-        }
-
-        /* ダークモード */
-        .dark-mode {
-            background-color: #333;
-            color: #fff;
-        }
     </style>
 </head>
-<body class="light-mode">
-
+<body class="dark-mode">
     <!-- コンテンツ表示画面 -->
     <div class="content-container">
         <div>
