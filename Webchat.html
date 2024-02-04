@@ -71,10 +71,12 @@
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             color: #333; /* メッセージのテキスト色を設定 */
+            word-wrap: break-word; /* 長いメッセージを折り返す */
         }
 
         .message p {
             margin: 5px 0;
+            word-break: break-all; /* 長いURLを改行する */
         }
 
         .message p.timestamp {
@@ -123,6 +125,16 @@
             width: auto;
             height: auto;
         }
+
+        .message a {
+            color: #007bff; /* リンクの色を設定 */
+            text-decoration: underline; /* リンクを下線で表示 */
+            cursor: pointer; /* リンクのカーソルをポインターに変更 */
+        }
+
+        .message a:hover {
+            color: #0056b3; /* リンクのホバー時の色を設定 */
+        }
     </style>
 </head>
 <body class="dark-mode">
@@ -130,14 +142,14 @@
     <div class="content-container">
         <div>
             <label for="uname">名前：</label>
-            <input type="text" id="uname" placeholder="名前を入力してください..." required>
+            <input type="text" id="uname" placeholder="名前を入力してください。" required>
         </div>
         <div>
             <label for="colorPicker">ユーザーの色：</label>
             <input type="color" id="colorPicker" value="#000000">
         </div>
         <div>
-            <textarea id="text" cols="30" rows="5" placeholder="メッセージを入力してください..."></textarea>
+            <textarea id="text" cols="30" rows="5" placeholder="メッセージを入力してください"></textarea>
         </div>
         <div>
             <button id="send">送信 <i class="fas fa-paper-plane"></i></button>
@@ -248,6 +260,12 @@
 
             const newMessage = $("#output .message:last-child");
             newMessage.animate({ marginLeft: 0, opacity: 1 }, 500);
+        });
+
+        // メッセージ内のリンクをクリックしたときの処理
+        $(document).on("click", ".message a", function() {
+            const url = $(this).attr("href");
+            window.open(url, '_blank');
         });
     </script>
 </body>
