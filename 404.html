@@ -7,7 +7,6 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f0f4f8; /* 淡いブルーグレーの背景 */
             text-align: center;
             margin: 0;
             padding: 0;
@@ -24,7 +23,7 @@
             animation: fadeInRotate 3s ease-in-out forwards;
             padding: 30px;
             border-radius: 15px;
-            background-color: #fff; /* 白い背景 */
+            background-color: #fff; /* ライトモードの背景 */
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* より顕著な影 */
         }
 
@@ -46,14 +45,34 @@
         .title {
             font-size: 3.5em;
             font-weight: bold;
-            color: #3498db; /* 淡い青色のタイトル */
+            color: #3498db; /* ライトモードのタイトル色 */
             margin-bottom: 10px;
         }
 
         .message {
             font-size: 1.4em;
-            color: #555; /* 暗めの文字色 */
+            color: #555; /* ライトモードの文字色 */
             margin-top: 20px;
+        }
+
+        /* ダークモードのスタイル */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #222; /* ダークモードの背景 */
+            }
+
+            .content {
+                background-color: #333; /* ダークモードのコンテンツ背景 */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* より顕著な影  /* ダークモードの影 */
+            }
+
+            .title {
+                color: #3498db; /* ダークモードのタイトル色 */
+            }
+
+            .message {
+                color: #bbb; /* ダークモードの文字色 */
+            }
         }
     </style>
 </head>
